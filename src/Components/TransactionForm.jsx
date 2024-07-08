@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 const API = import.meta.env.VITE_API_URL;
 
-const TransactionNewForm = () => {
+const TransactionForm = () => {
   const [transactionDetails, setTransactionDetails] = useState({
     item_name: "",
     amount: 0,
@@ -13,6 +13,16 @@ const TransactionNewForm = () => {
   });
   const { item_name, amount, from, category, date } = transactionDetails;
   let navigate = useNavigate();
+  let { id } = useParams();
+
+  useEffect(() => {
+    if (!id) return;
+
+    fetch(`${API}/transactions/${id}`)
+      .then((res) => res.json())
+      .then((data) => setTransactionDetails(data))
+      .catch((err) => console.error(err));
+  }, [id]);
 
   const addTransaction = () => {
     fetch(`${API}/transactions`, {
@@ -29,6 +39,20 @@ const TransactionNewForm = () => {
       .catch((err) => console.error(err));
   };
 
+  const updateTransaction = () => {
+    fetch(`${API}/transactions/${id}`, {
+      method: "PUT",
+      body: JSON.stringify(transactionDetails),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then(() => {
+        navigate(`/transactions/${id}`);
+      })
+      .catch((err) => console.error(err));
+  };
+
   const handleTextChange = (e) => {
     setTransactionDetails({
       ...transactionDetails,
@@ -38,8 +62,13 @@ const TransactionNewForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addTransaction();
+    if (!id) {
+      addTransaction();
+    } else {
+      updateTransaction();
+    }
   };
+
   return (
     <div>
       TransactionNewForm
@@ -90,4 +119,4 @@ const TransactionNewForm = () => {
   );
 };
 
-export default TransactionNewForm;
+export default TransactionForm;
