@@ -1,9 +1,13 @@
-import React from 'react'
+import React from "react";
+import Transaction from "../Components/Transaction";
 
 const Show = () => {
   return (
-    <div>Show</div>
-  )
-}
+    <div>
+      Show
+      <Transaction />
+    </div>
+  );
+};
 
-export default Show
+export default Show;
