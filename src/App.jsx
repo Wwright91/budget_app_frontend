@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 
@@ -11,14 +10,7 @@ import Show from "./Pages/Show";
 
 import NavBar from "../src/Components/NavBar";
 
-const API = import.meta.env.VITE_API_URL;
-
 function App() {
-  useEffect(() => {
-    fetch(`${API}/transactions`)
-      .then((res) => res.json())
-      .then((data) => console.log(data));
-  }, []);
 
   return (
     <div>
