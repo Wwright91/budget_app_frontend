@@ -1,8 +1,11 @@
 import React from 'react'
+import TransactionNewForm from "../Components/TransactionNewForm"
 
 const New = () => {
   return (
-    <div>New</div>
+    <div>New
+      <TransactionNewForm/>
+    </div>
   )
 }
 

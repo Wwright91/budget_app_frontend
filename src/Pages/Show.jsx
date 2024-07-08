@@ -1,11 +1,11 @@
 import React from "react";
-import Transaction from "../Components/Transaction";
+import TransactionDetails from "../Components/TransactionDetails";
 
 const Show = () => {
   return (
     <div>
       Show
-      <Transaction />
+      <TransactionDetails />
     </div>
   );
 };
